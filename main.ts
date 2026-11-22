@@ -9,5 +9,13 @@ const TEXT =
   "for ten thousand years, and the sea holds the shore, and the shore holds the house. " +
   "Nobody is keeping score.";
 
+// The gate allows 1 to 280 characters; refuse to write anything outside it
+// rather than shipping an entry the gate would score 0.
+const length = [...TEXT].length;
+if (length < 1 || length > 280) {
+  console.error(`entry text is ${length} characters, outside the 1-280 gate`);
+  process.exit(1);
+}
+
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", TEXT, "utf8");
